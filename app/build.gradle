@@ -35,5 +35,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     //CardView
     implementation 'androidx.cardview:cardview:1.0.0'
+    //OTP View
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
+    //Alerter
+    implementation 'com.tapadoo.android:alerter:2.0.6'
 
 }

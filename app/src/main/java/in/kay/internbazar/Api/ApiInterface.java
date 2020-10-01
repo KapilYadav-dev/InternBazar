@@ -23,7 +23,7 @@ public interface ApiInterface {
             @Field("otp") String otp);
 
     @FormUrlEncoded
-    @POST("auth/signup/login")
+    @POST("auth/login/student")
     Call<ResponseBody> loginUser (
             @Field("email") String email,
             @Field("password") String password);
