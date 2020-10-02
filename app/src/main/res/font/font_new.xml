@@ -27,4 +27,13 @@
         app:font="@font/sans_bold"
         app:fontStyle="normal"
         app:fontWeight="400" />
+    <font
+        android:font="@font/sens_regular"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+
+        app:font="@font/sens_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
 </font-family>

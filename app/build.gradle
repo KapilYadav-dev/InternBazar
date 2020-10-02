@@ -39,5 +39,7 @@ dependencies {
     implementation 'com.github.aabhasr1:OtpView:v1.1.2'
     //Alerter
     implementation 'com.tapadoo.android:alerter:2.0.6'
+    //Folding Menu
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
 
 }
