@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -80,6 +81,7 @@ public class Detail extends AppCompatActivity {
                             String skillsReq = child.getString("skillsReq");
                             String strskillsReq = skillsReq.replaceAll(",","\n");
                             String title = child.getString("title");
+                            String cap = title.substring(0, 1).toUpperCase() + title.substring(1);
                             String description = child.getString("description");
                             String stipend = "₹ "+child.getString("stipend");
                             String internshipPeriod = child.getString("internshipPeriod");
@@ -91,7 +93,7 @@ public class Detail extends AppCompatActivity {
                             String perks = child.getString("perks");
                             String __v =child.getString("__v");
                             Integer vacancy = child.getInt("vacancy");
-                            models.add(new InternshipModel(_id,location,strskillsReq,title,description,stipend,internshipPeriod,companyName,internshipType,applyBy,startDate,whocanApply,perks,__v,vacancy));
+                            models.add(new InternshipModel(_id,location,strskillsReq,cap,description,stipend,internshipPeriod,companyName,internshipType,applyBy,startDate,whocanApply,perks,__v,vacancy));
                             adapter=new InternshipAdapter(models);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
@@ -102,7 +104,18 @@ public class Detail extends AppCompatActivity {
                         string=response.errorBody().string();
                         JSONObject jsonObject=new JSONObject(string);
                         String error=jsonObject.getString("message");
-                        Toast.makeText(Detail.this, "Error :" +error, Toast.LENGTH_SHORT).show();
+                        if (error.equalsIgnoreCase("No such internships found"))
+                        {
+                            recyclerView.setVisibility(View.GONE);
+                            findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                            findViewById(R.id.iv_not_found).setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            findViewById(R.id.tv_not_found).setVisibility(View.GONE);
+                            findViewById(R.id.iv_not_found).setVisibility(View.GONE);
+                        }
                     }
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();

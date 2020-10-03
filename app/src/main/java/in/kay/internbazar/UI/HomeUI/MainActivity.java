@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 
 import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import in.kay.internbazar.R;
 
