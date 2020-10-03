@@ -12,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Intro.Splash"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+        <activity android:name=".UI.HomeUI.Detail">
+        </activity>
+        <activity
+            android:name=".UI.Intro.Splash"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +25,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Intro.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
-        <activity android:name=".UI.MainActivity"
-            android:theme="@style/main"
+            android:name=".UI.Intro.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".UI.HomeUI.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <meta-data

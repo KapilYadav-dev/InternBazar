@@ -31,5 +31,11 @@ public interface ApiInterface {
             @Field("password") String password);
 
     @GET("internship/getinternships")
-    Call<ResponseBody> getInternship(@Query("location") String location,@Query("vacancy") int vacancy);
+    Call<ResponseBody> getInternshipAll();
+
+    @GET("internship/getinternships")
+    Call<ResponseBody> getInternshipByLocation(@Query("location") String location);
+
+    @GET("internship/getinternships")
+    Call<ResponseBody> getInternshipByInternshipType(@Query("internshipType") String internshipType);
 }

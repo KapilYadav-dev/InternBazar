@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:layout_marginBottom="20dp"
     android:elevation="20dp"
     app:cardCornerRadius="10dp">
 
@@ -10,7 +11,7 @@
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backSideColor="@color/colorBack">
+        app:backSideColor="#FFFFFF">
 
         <FrameLayout
             android:id="@+id/cell_content_view"
@@ -21,6 +22,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:minHeight="600dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp">
 
@@ -262,7 +264,7 @@
         <FrameLayout
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="220dp"
             android:visibility="visible">
 
             <RelativeLayout

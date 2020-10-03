@@ -1,4 +1,4 @@
-package in.kay.internbazar.Intro;
+package in.kay.internbazar.UI.Intro;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -35,7 +35,7 @@ import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.R;
-import in.kay.internbazar.UI.MainActivity;
+import in.kay.internbazar.UI.HomeUI.MainActivity;
 import in.kay.internbazar.Utils.Preference;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -185,7 +185,7 @@ public class Signup extends Fragment {
 
     private void OTPPopup(final String id) {
         TextView msg;
-        OtpTextView otpTextView;
+        final OtpTextView otpTextView;
         dialog.setContentView(R.layout.otp_diag);
         otpTextView = dialog.findViewById(R.id.otp_view);
         msg = dialog.findViewById(R.id.tv_2);
@@ -224,6 +224,7 @@ public class Signup extends Fragment {
                                 Toast.makeText(mcontext, "You are successfully registered.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
+                                otpTextView.showError();
                                 Alerter.create(getActivity())
                                         .setTitle("Error ")
                                         .setBackgroundColorRes(R.color.colorPrimary)

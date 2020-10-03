@@ -1,4 +1,4 @@
-package in.kay.internbazar.Intro;
+package in.kay.internbazar.UI.Intro;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.tapadoo.alerter.Alerter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +28,7 @@ import java.io.IOException;
 
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.R;
-import in.kay.internbazar.UI.MainActivity;
+import in.kay.internbazar.UI.HomeUI.MainActivity;
 import in.kay.internbazar.Utils.Preference;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

@@ -1,548 +1,60 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#FEFEFE"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:id="@+id/toolbar"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/brandon"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:layout_height="wrap_content"
+                android:text="Intern"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/brandon"
+                android:text="Bazaar"
+                android:layout_toRightOf="@id/tv_1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24dp"
+                android:layout_marginStart="2dp"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/ic_header_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ic_shadow_back" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="25dp">
-
-                    <SearchView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:queryHint="Search your dream internship" />
-                </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/sans_bold"
-                android:text="Internships"
-                android:textColor="@color/black"
-                android:textSize="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_light"
-                android:text="POPULAR CITIES"
-                android:textColor="#666666"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
-                app:layout_constraintVertical_bias="0.050000012" />
-
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:scrollbars="none"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:layout_constraintVertical_bias="0.0">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_work_from_home" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Work from home"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_delhi" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Delhi/NCR"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_bangalore" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Bangalore"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_mumbai" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Mumbai"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_hyderabad" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Hyderabad"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_chennai" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Chennai"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_kolkata" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Kolkata"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_international" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="International"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/lato_light"
-                android:text="POPULAR CATEGORIES"
-                android:textColor="#666666"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-                app:layout_constraintVertical_bias="0.050000012" />
-
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="10dp"
-                android:scrollbars="none"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                app:layout_constraintVertical_bias="1.0">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_part_time" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Part-time"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_engineering" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Engineering"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_ngo" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="NGO"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_mba" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="MBA"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_design" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Design"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_science" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Science"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_media" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Media"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_humanities" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Humanities"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/brandon"
-            android:layout_below="@id/cl"
-            android:layout_margin="20dp"
-            android:layout_centerHorizontal="true"
-            android:text="View all interships →"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimary"/>
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+        android:layout_above="@+id/bottom_nav" />
+
+    <com.fxn.BubbleTabBar
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF"
+        android:elevation="16dp"
+        android:padding="7dp"
+        app:bubbletab_menuResource="@menu/menu"
+        app:bubbletab_custom_font="@font/sans_bold"
+        app:bubbletab_disabled_icon_color="@color/colorBlack"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_size="30dp"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_icon_padding="5sp"
+        app:bubbletab_vertical_padding="10dp">
+    </com.fxn.BubbleTabBar>
+</RelativeLayout>

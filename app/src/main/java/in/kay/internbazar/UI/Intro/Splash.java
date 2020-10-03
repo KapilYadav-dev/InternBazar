@@ -1,4 +1,4 @@
-package in.kay.internbazar.Intro;
+package in.kay.internbazar.UI.Intro;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
