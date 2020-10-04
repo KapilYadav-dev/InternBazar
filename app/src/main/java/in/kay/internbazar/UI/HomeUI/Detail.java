@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,7 +95,7 @@ public class Detail extends AppCompatActivity {
                             String __v =child.getString("__v");
                             Integer vacancy = child.getInt("vacancy");
                             models.add(new InternshipModel(_id,location,strskillsReq,cap,description,stipend,internshipPeriod,companyName,internshipType,applyBy,startDate,whocanApply,perks,__v,vacancy));
-                            adapter=new InternshipAdapter(models);
+                            adapter=new InternshipAdapter(models,getBaseContext());
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
@@ -125,7 +126,7 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 pd.dismiss();
-                Toast.makeText(Detail.this, "Error "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                TastyToast.makeText(getBaseContext(), "Error : " +t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
                 onBackPressed();
             }
         });

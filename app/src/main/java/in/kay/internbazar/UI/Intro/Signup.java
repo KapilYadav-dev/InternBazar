@@ -16,13 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.sdsmdg.tastytoast.TastyToast;
 import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONArray;
@@ -177,7 +177,7 @@ public class Signup extends Fragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 pd.dismiss();
-                Toast.makeText(mcontext, "Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                TastyToast.makeText(mcontext, "Error : " +t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
             }
         });
     }
@@ -221,7 +221,7 @@ public class Signup extends Fragment {
                                 Preference.setSharedPreferenceBoolean(mcontext, "isLoggedIn", true);
                                 Preference.setSharedPreferenceString(mcontext, "uid", userID);
                                 Preference.setSharedPreferenceString(mcontext, "token", token);
-                                Toast.makeText(mcontext, "You are successfully registered.", Toast.LENGTH_SHORT).show();
+                                TastyToast.makeText(mcontext, "You are successfully registered.", TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
                                 otpTextView.showError();

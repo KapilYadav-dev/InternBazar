@@ -362,7 +362,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/tv_start"
-                    android:src="@drawable/ic_end_date" />
+                    android:src="@drawable/ic_duration" />
+
 
                 <TextView
                     android:id="@+id/tv_duration"
@@ -412,7 +413,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/tv_stipend"
-                    android:src="@drawable/ic_duration" />
+                    android:src="@drawable/ic_end_date" />
 
                 <TextView
                     android:id="@+id/tv_end_date"

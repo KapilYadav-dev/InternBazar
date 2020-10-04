@@ -12,13 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.sdsmdg.tastytoast.TastyToast;
 import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONException;
@@ -128,7 +127,7 @@ public class Login extends Fragment {
                 String string;
                 try {
                     if (response.code() == 200) {
-                        Toast.makeText(mcontext, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(mcontext, "Successfully logged in", TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                         string = response.body().string();
                         JSONObject jsonObject = new JSONObject(string);
                         String token = jsonObject.getString("token");
@@ -162,7 +161,7 @@ public class Login extends Fragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 pd.dismiss();
-                Toast.makeText(mcontext, "Error occurred " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                TastyToast.makeText(mcontext, "Error occurred " + t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
             }
         });
     }

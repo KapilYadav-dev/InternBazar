@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="20dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBack"
+        android:padding="10dp">
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif"
+            android:layout_width="wrap_content"
+            android:scaleType="center"
+            android:layout_height="250dp"
+            android:src="@drawable/success"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/btn_done"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/success_button"
+            android:layout_alignParentBottom="true"
+            android:text="Done"
+            android:fontFamily="@font/sans_bold"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

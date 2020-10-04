@@ -44,5 +44,11 @@ dependencies {
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     //Chipbar
     implementation  'com.fxn769:bubbletabbar:1.0.5'
+    //Circular Image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //Gif Image View
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    //TastyToast
+    implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
 
 }
