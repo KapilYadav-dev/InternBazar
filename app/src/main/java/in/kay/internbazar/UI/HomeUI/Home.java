@@ -2,6 +2,7 @@ package in.kay.internbazar.UI.HomeUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.kay.internbazar.Adapter.SliderAdapter;
+import in.kay.internbazar.Model.SliderItem;
 import in.kay.internbazar.R;
 
 public class Home extends Fragment implements View.OnClickListener {
     Context mcontext;
     View view;
-
+    SliderView sliderView;
+    private SliderAdapter adapter;
+    List<SliderItem> list=new ArrayList<>();
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -54,6 +66,23 @@ public class Home extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
         Initz();
+        Slider();
+    }
+
+    private void Slider() {
+        sliderView = view.findViewById(R.id.imageSlider);
+        list.add(new SliderItem("Welcome to InterBazaar","https://www.nicepng.com/png/detail/361-3619460_case-study-vector-psd.png"));
+        list.add(new SliderItem("Get all latest course notifications..","https://cdn.dribbble.com/users/4214751/screenshots/10503785/media/8ddd53e41258703dc23cc8bd3ca68afd.png"));
+        adapter = new SliderAdapter(mcontext,list);
+        sliderView.setSliderAdapter(adapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        sliderView.setScrollTimeInSec(3);
+        sliderView.setAutoCycle(true);
+        sliderView.startAutoCycle();
     }
 
     private void Initz() {

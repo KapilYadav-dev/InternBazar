@@ -18,30 +18,37 @@
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@drawable/ic_header_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ic_shadow_back" />
-
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_slider_mainActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_alignParentTop="true"
                     android:elevation="10dp"
-                    app:cardCornerRadius="25dp">
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="8dp">
 
-                    <SearchView
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:queryHint="Search your dream internship" />
+                        android:layout_height="200dp"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorEnabled="true"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1" />
+
                 </androidx.cardview.widget.CardView>
+
             </RelativeLayout>
 
             <TextView
