@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -129,12 +131,37 @@ public class Login extends Fragment {
                     if (response.code() == 200) {
                         TastyToast.makeText(mcontext, "Successfully logged in", TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                         string = response.body().string();
-                        JSONObject jsonObject = new JSONObject(string);
+                        final JSONObject jsonObject = new JSONObject(string);
                         String token = jsonObject.getString("token");
                         String uid = jsonObject.getString("userId");
                         Preference.setSharedPreferenceBoolean(mcontext, "isLoggedIn", true);
                         Preference.setSharedPreferenceString(mcontext, "uid", uid);
                         Preference.setSharedPreferenceString(mcontext, "token", token);
+                        Preference.setSharedPreferenceString(mcontext, "email", email);
+                        Call<ResponseBody> name = RetrofitClient.getInstance().getApi().view(uid,"student","Bearer " + token);
+                        name.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                String string;
+                                if (response.code()==200)
+                                {
+                                    try {
+                                        string=response.body().string();
+                                        JSONObject jsonObject1=new JSONObject(string);
+                                        JSONObject child=jsonObject1.getJSONObject("user");
+                                        String name=child.getString("name");
+                                        Preference.setSharedPreferenceString(mcontext, "name", name);
+                                    } catch (IOException | JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
                         startActivity(new Intent(mcontext, MainActivity.class));
                     } else {
                         string = response.errorBody().string();

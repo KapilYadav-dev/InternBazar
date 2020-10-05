@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/btm_notification"
-        android:icon="@drawable/ic_notification"
+        android:icon="@drawable/ic_cv"
         android:iconTint="@color/colorPrimary"
-        android:title="Notification"/>
+        android:title="Application"/>
     <item
         android:id="@+id/btm_home"
         android:icon="@drawable/ic_home"

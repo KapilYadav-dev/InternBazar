@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean isFirstTime = Preference.getSharedPreferenceBoolean(this, "isFirstTime", true);
         if (isFirstTime) {
             EditProfile();
+            Preference.setSharedPreferenceBoolean(this, "isFirstTime", false);
         }
         setContentView(R.layout.activity_main);
         bubbleTabBar = findViewById(R.id.bottom_nav);
@@ -161,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         data.addProperty("jobs", jobs);
         data.addProperty("additional", additional);
         jsonObject.add("data", data);
-
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().edit(jsonObject, "Bearer " + token);
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMax(100);
@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Preference.setSharedPreferenceBoolean(this, "isFirstTime", false);
     }
 
     private void bottomMenu() {

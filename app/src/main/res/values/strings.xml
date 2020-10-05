@@ -3,4 +3,8 @@
     <string name="find_the_best_winter_summer_internships_for_students"><![CDATA[FIND THE BEST WINTER & SUMMER INTERNSHIPS FOR STUDENTS]]></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Log-out</string>
+    <string name="ok">Yes</string>
+    <string name="dismiss">No</string>
+    <string name="logout_msg">Are you sure want to log-out.</string>
 </resources>

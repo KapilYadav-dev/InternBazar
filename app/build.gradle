@@ -50,5 +50,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
     //TastyToast
     implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
-
+    //Material dialog
+    implementation 'com.gdacciaro:iosdialog:1.0.3'
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

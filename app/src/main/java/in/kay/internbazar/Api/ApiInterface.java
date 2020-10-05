@@ -2,6 +2,7 @@ package in.kay.internbazar.Api;
 
 import com.google.gson.JsonObject;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -9,7 +10,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -43,6 +46,7 @@ public interface ApiInterface {
 
     @GET("internship/getinternships")
     Call<ResponseBody> getInternshipByInternshipType(@Query("internshipType") String internshipType);
+
     //Apply Internship
     @FormUrlEncoded
     @POST("internship/apply")
@@ -50,15 +54,32 @@ public interface ApiInterface {
             @Field("internshipId") String internshipId,
             @Field("userId") String userId,
             @Header("Authorization") String header);
+
     //My Applications
     @FormUrlEncoded
     @POST("internship/myapplications")
     Call<ResponseBody> myApplications(
             @Field("userId") String userId,
             @Header("Authorization") String header);
+
     //Profile
+    @FormUrlEncoded
+    @POST("profile/view")
+    Call<ResponseBody> view(
+            @Field("userId") String userId,
+            @Field("userType") String userType,
+            @Header("Authorization") String header);
+
     @POST("profile/edit")
     Call<ResponseBody> edit(
             @Body JsonObject data,
+            @Header("Authorization") String header);
+
+    @Multipart
+    @POST("profile/edit")
+    Call<ResponseBody> uploadImg(
+            @Part("image") RequestBody image,
+            @Part("userId") RequestBody userId,
+            @Part("userType") RequestBody userType,
             @Header("Authorization") String header);
 }
