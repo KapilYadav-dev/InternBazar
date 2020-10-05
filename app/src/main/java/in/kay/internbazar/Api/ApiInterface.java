@@ -1,7 +1,10 @@
 package in.kay.internbazar.Api;
 
+import com.google.gson.JsonObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -49,8 +52,13 @@ public interface ApiInterface {
             @Header("Authorization") String header);
     //My Applications
     @FormUrlEncoded
-    @POST("internship/apply")
+    @POST("internship/myapplications")
     Call<ResponseBody> myApplications(
             @Field("userId") String userId,
+            @Header("Authorization") String header);
+    //Profile
+    @POST("profile/edit")
+    Call<ResponseBody> edit(
+            @Body JsonObject data,
             @Header("Authorization") String header);
 }

@@ -177,7 +177,7 @@ public class Signup extends Fragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 pd.dismiss();
-                TastyToast.makeText(mcontext, "Error : " +t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
+                TastyToast.makeText(mcontext, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
             }
         });
     }
@@ -221,7 +221,9 @@ public class Signup extends Fragment {
                                 Preference.setSharedPreferenceBoolean(mcontext, "isLoggedIn", true);
                                 Preference.setSharedPreferenceString(mcontext, "uid", userID);
                                 Preference.setSharedPreferenceString(mcontext, "token", token);
-                                TastyToast.makeText(mcontext, "You are successfully registered.", TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                                Preference.setSharedPreferenceString(mcontext, "email", email);
+                                Preference.setSharedPreferenceString(mcontext, "name", name);
+                                TastyToast.makeText(mcontext, "You are successfully registered.", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
                                 otpTextView.showError();

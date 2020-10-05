@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import in.kay.internbazar.R;
-import in.kay.internbazar.Utils.Preference;
 
 public class Home extends Fragment implements View.OnClickListener {
     Context mcontext;
@@ -201,8 +200,6 @@ public class Home extends Fragment implements View.OnClickListener {
                 view.findViewById(R.id.rl_science).setClickable(false);
                 startActivity(intent);
                 break;
-
-
         }
     }
 }
