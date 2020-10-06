@@ -2,8 +2,6 @@ package in.kay.internbazar.UI.HomeUI;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,27 +31,23 @@ public class Detail extends AppCompatActivity {
     List<InternshipModel> models = new ArrayList<>();
     RecyclerView recyclerView;
     InternshipAdapter adapter;
-    String query,type;
+    String query, type;
     Call<ResponseBody> call;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        query=getIntent().getStringExtra("query");
-        type=getIntent().getStringExtra("type");
-        recyclerView=findViewById(R.id.rv);
+        query = getIntent().getStringExtra("query");
+        type = getIntent().getStringExtra("type");
+        recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        if (type.equalsIgnoreCase(""))
-        {
+        if (type.equalsIgnoreCase("")) {
             call = RetrofitClient.getInstance().getApi().getInternshipAll();
-        }
-        else if (type.equalsIgnoreCase("City"))
-        {
+        } else if (type.equalsIgnoreCase("City")) {
             call = RetrofitClient.getInstance().getApi().getInternshipByLocation(query);
 
-        }
-        else if (type.equalsIgnoreCase("Category"))
-        {
+        } else if (type.equalsIgnoreCase("Category")) {
             call = RetrofitClient.getInstance().getApi().getInternshipByInternshipType(query);
         }
         DoWork(call);
@@ -62,6 +56,7 @@ public class Detail extends AppCompatActivity {
     private void DoWork(Call<ResponseBody> call) {
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMax(100);
+        pd.setCancelable(false);
         pd.setMessage("Working...");
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.show();
@@ -80,11 +75,11 @@ public class Detail extends AppCompatActivity {
                             String _id = child.getString("_id");
                             String location = child.getString("location");
                             String skillsReq = child.getString("skillsReq");
-                            String strskillsReq = skillsReq.replaceAll(",","\n");
+                            String strskillsReq = skillsReq.replaceAll(",", "\n");
                             String title = child.getString("title");
                             String cap = title.substring(0, 1).toUpperCase() + title.substring(1);
                             String description = child.getString("description");
-                            String stipend = "₹ "+child.getString("stipend");
+                            String stipend = "₹ " + child.getString("stipend");
                             String internshipPeriod = child.getString("internshipPeriod");
                             String companyName = child.getString("companyName");
                             String internshipType = child.getString("internshipType");
@@ -92,27 +87,22 @@ public class Detail extends AppCompatActivity {
                             String startDate = child.getString("startDate");
                             String whocanApply = child.getString("whocanApply");
                             String perks = child.getString("perks");
-                            String __v =child.getString("__v");
+                            String __v = child.getString("__v");
                             Integer vacancy = child.getInt("vacancy");
-                            models.add(new InternshipModel(_id,location,strskillsReq,cap,description,stipend,internshipPeriod,companyName,internshipType,applyBy,startDate,whocanApply,perks,__v,vacancy));
-                            adapter=new InternshipAdapter(models,getBaseContext());
+                            models.add(new InternshipModel(_id, location, strskillsReq, cap, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v, vacancy));
+                            adapter = new InternshipAdapter(models, getBaseContext());
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
-                    }
-                    else
-                    {
-                        string=response.errorBody().string();
-                        JSONObject jsonObject=new JSONObject(string);
-                        String error=jsonObject.getString("message");
-                        if (error.equalsIgnoreCase("No such internships found"))
-                        {
+                    } else {
+                        string = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(string);
+                        String error = jsonObject.getString("message");
+                        if (error.equalsIgnoreCase("No such internships found")) {
                             recyclerView.setVisibility(View.GONE);
                             findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
                             findViewById(R.id.iv_not_found).setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
+                        } else {
                             recyclerView.setVisibility(View.VISIBLE);
                             findViewById(R.id.tv_not_found).setVisibility(View.GONE);
                             findViewById(R.id.iv_not_found).setVisibility(View.GONE);
@@ -126,7 +116,7 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 pd.dismiss();
-                TastyToast.makeText(getBaseContext(), "Error : " +t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
+                TastyToast.makeText(getBaseContext(), "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                 onBackPressed();
             }
         });

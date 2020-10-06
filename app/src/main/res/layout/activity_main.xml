@@ -1,44 +1,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="#FEFEFE"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FEFEFE">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:elevation="10dp"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:elevation="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/tv_1"
                 android:layout_width="wrap_content"
-                android:fontFamily="@font/brandon"
-                android:textColor="@color/black"
-                android:textSize="24dp"
                 android:layout_height="wrap_content"
-                android:text="Intern"/>
+                android:fontFamily="@font/brandon"
+                android:text="Intern"
+                android:textColor="@color/black"
+                android:textSize="24dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_toRightOf="@id/tv_1"
                 android:fontFamily="@font/brandon"
                 android:text="Bazaar"
-                android:layout_toRightOf="@id/tv_1"
                 android:textColor="@color/colorPrimary"
-                android:textSize="24dp"
-                android:layout_marginStart="2dp"/>
+                android:textSize="24dp" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_nav" />
+        android:layout_above="@+id/bottom_nav"
+        android:layout_below="@+id/toolbar" />
 
     <com.fxn.BubbleTabBar
         android:id="@+id/bottom_nav"
@@ -48,13 +51,12 @@
         android:background="#FFF"
         android:elevation="16dp"
         android:padding="7dp"
-        app:bubbletab_menuResource="@menu/menu"
         app:bubbletab_custom_font="@font/sans_bold"
         app:bubbletab_disabled_icon_color="@color/colorBlack"
         app:bubbletab_horizontal_padding="20dp"
-        app:bubbletab_icon_size="30dp"
-        app:bubbletab_title_size="16sp"
         app:bubbletab_icon_padding="5sp"
-        app:bubbletab_vertical_padding="10dp">
-    </com.fxn.BubbleTabBar>
+        app:bubbletab_icon_size="30dp"
+        app:bubbletab_menuResource="@menu/menu"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_vertical_padding="10dp"></com.fxn.BubbleTabBar>
 </RelativeLayout>

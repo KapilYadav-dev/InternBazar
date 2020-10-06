@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.HomeUI.Detail">
-        </activity>
+        <activity android:name=".UI.HomeUI.Detail"></activity>
         <activity
             android:name=".UI.Intro.Splash"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -26,10 +25,10 @@
         </activity>
         <activity
             android:name=".UI.Intro.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".UI.HomeUI.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <meta-data
             android:name="preloaded_fonts"

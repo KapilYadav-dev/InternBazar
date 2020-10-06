@@ -1,7 +1,5 @@
 package in.kay.internbazar.Api;
 
-import com.google.gson.Gson;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,13 +14,14 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
     public static synchronized RetrofitClient getInstance() {
-        if (mInstance==null)
-        {
-            mInstance=new RetrofitClient();
+        if (mInstance == null) {
+            mInstance = new RetrofitClient();
         }
         return mInstance;
     }
+
     public ApiInterface getApi() {
         return retrofit.create(ApiInterface.class);
     }

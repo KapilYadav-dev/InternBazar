@@ -4,8 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="#234"
     android:layout_margin="10dp"
+    android:background="#234"
     android:padding="5dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="20dp">
@@ -15,44 +15,45 @@
         android:layout_height="match_parent"
         android:background="@color/colorBack"
         android:padding="10dp">
+
         <TextView
             android:id="@+id/tv_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
+            android:fontFamily="@font/brandon"
             android:text="Verification Code"
             android:textColor="#A2000000"
-            android:fontFamily="@font/brandon"
-            android:textSize="20dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tv_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textSize="16dp"
-            android:fontFamily="@font/sans_regular"
             android:layout_below="@id/tv_1"
+            android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
+            android:fontFamily="@font/sans_regular"
+            android:text="Please type the verification code sent to "
             android:textAlignment="center"
-            android:text="Please type the verification code sent to "/>
+            android:textSize="16dp" />
 
         <in.aabhasjindal.otptextview.OtpTextView
             android:id="@+id/otp_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_centerHorizontal="true"
-            app:height="40dp"
-            app:width="30dp"
             android:layout_below="@+id/tv_2"
-            app:bar_enabled="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:textColor="@color/colorBlack"
+            app:bar_enabled="true"
             app:bar_height="2dp"
+            app:height="40dp"
             app:length="6"
             app:otp=""
-            app:otp_text_size="24dp"/>
+            app:otp_text_size="24dp"
+            app:width="30dp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

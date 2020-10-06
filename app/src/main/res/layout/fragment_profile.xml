@@ -62,8 +62,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/et_back"
-            android:padding="10dp"
+            android:background="@drawable/profile_card"
+            android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -73,8 +73,8 @@
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/ic_profile" />
 
             <TextView
@@ -82,11 +82,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/profile"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/font_new"
                 android:paddingStart="20dp"
                 android:text="Profile"
+                android:textColor="#C9000000"
                 android:textSize="20dp" />
         </RelativeLayout>
 
@@ -97,8 +96,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/et_back"
-            android:padding="10dp"
+            android:background="@drawable/profile_card"
+            android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -108,20 +107,87 @@
 
             <ImageView
                 android:id="@+id/help"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/ic_help" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_toRightOf="@id/help"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/font_new"
                 android:paddingStart="20dp"
                 android:text="Help and Support"
+                android:textColor="#C9000000"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/profile_card"
+            android:padding="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_resume"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/password"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_edit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/password"
+                android:fontFamily="@font/font_new"
+                android:paddingStart="20dp"
+                android:text="Change Password"
+                android:textColor="#C9000000"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_resume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/profile_card"
+            android:padding="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_help"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/resume"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_cv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/resume"
+                android:fontFamily="@font/font_new"
+                android:paddingStart="20dp"
+                android:text="View Resume"
+                android:textColor="#C9000000"
                 android:textSize="20dp" />
         </RelativeLayout>
 
@@ -132,19 +198,19 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/et_back"
-            android:padding="10dp"
+            android:background="@drawable/profile_card"
+            android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_help"
+            app:layout_constraintTop_toBottomOf="@+id/rl_change_password"
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
                 android:id="@+id/signout"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/ic_sign_out" />
 
             <TextView
@@ -152,11 +218,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/signout"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/font_new"
                 android:paddingStart="20dp"
                 android:text="Log-out"
+                android:textColor="#C9000000"
                 android:textSize="20dp" />
         </RelativeLayout>
 

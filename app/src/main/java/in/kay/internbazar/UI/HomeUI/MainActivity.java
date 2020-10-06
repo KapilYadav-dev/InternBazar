@@ -79,13 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        close.setVisibility(View.GONE);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMax(100);
         pd.setMessage("Saving");
+        pd.setCancelable(false);
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.show();
         call.enqueue(new Callback<ResponseBody>() {

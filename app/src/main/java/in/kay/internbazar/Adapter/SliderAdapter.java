@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
@@ -25,7 +24,7 @@ public class SliderAdapter extends
     private List<SliderItem> list = new ArrayList<>();
 
 
-    public SliderAdapter(Context context,List<SliderItem> list) {
+    public SliderAdapter(Context context, List<SliderItem> list) {
         this.context = context;
         this.list = list;
 

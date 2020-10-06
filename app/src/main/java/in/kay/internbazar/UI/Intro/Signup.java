@@ -138,6 +138,7 @@ public class Signup extends Fragment {
         pd.setMessage("Sending you OTP");
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.show();
+        pd.setCancelable(false);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -204,6 +205,7 @@ public class Signup extends Fragment {
                 Call<ResponseBody> call = RetrofitClient.getInstance().getApi().verifyOTP(id, otp);
                 final ProgressDialog pd = new ProgressDialog(mcontext);
                 pd.setMax(100);
+                pd.setCancelable(false);
                 pd.setMessage("Verifying");
                 pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pd.show();

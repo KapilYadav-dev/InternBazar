@@ -1,5 +1,4 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -26,8 +25,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:elevation="10dp"
                     android:layout_margin="16dp"
+                    android:elevation="10dp"
                     app:cardCornerRadius="8dp">
 
                     <com.smarteist.autoimageslider.SliderView
@@ -74,10 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/sens_regular"
-                android:textStyle="bold"
                 android:text="Apply internship for free"
                 android:textColor="@color/black"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -576,16 +575,17 @@
                 </LinearLayout>
             </HorizontalScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/tv_view_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/brandon"
             android:layout_below="@id/cl"
-            android:layout_margin="05dp"
             android:layout_centerHorizontal="true"
+            android:layout_margin="05dp"
+            android:fontFamily="@font/brandon"
             android:text="View all interships →"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

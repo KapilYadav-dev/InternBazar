@@ -43,7 +43,7 @@ dependencies {
     //Folding Menu
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     //Chipbar
-    implementation  'com.fxn769:bubbletabbar:1.0.5'
+    implementation 'com.fxn769:bubbletabbar:1.0.5'
     //Circular Image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //Gif Image View

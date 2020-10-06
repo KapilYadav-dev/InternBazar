@@ -21,9 +21,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:minHeight="600dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:minHeight="600dp">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -243,10 +243,10 @@
                     android:id="@+id/button"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/button"
                     android:elevation="10dp"
                     android:fontFamily="@font/brandon"
-                    android:layout_marginTop="30dp"
                     android:text="Apply"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"

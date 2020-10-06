@@ -1,6 +1,5 @@
 package in.kay.internbazar.Adapter;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,7 +75,7 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
         holder.apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog=new Dialog((Activity)view.getContext());
+                dialog = new Dialog(view.getContext());
                 Call<ResponseBody> call = RetrofitClient.getInstance().getApi().applyInternship(list.get(position).get_id(), uid, "Bearer " + token);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -84,12 +84,12 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
                         try {
                             if (response.code() == 200) {
                                 ShowDiag();
-                                TastyToast.makeText(context, "Successfully applied to "+list.get(position).getTitle(), TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                                TastyToast.makeText(context, "Successfully applied to " + list.get(position).getTitle(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                             } else {
-                                string=response.errorBody().string();
-                                JSONObject jsonObject=new JSONObject(string);
-                                String errormsg=jsonObject.getString("message");
-                                TastyToast.makeText(context, "Error : " +errormsg, TastyToast.LENGTH_SHORT,TastyToast.WARNING);
+                                string = response.errorBody().string();
+                                JSONObject jsonObject = new JSONObject(string);
+                                String errormsg = jsonObject.getString("message");
+                                TastyToast.makeText(context, "Error : " + errormsg, TastyToast.LENGTH_SHORT, TastyToast.WARNING);
                             }
                         } catch (IOException | JSONException e) {
                             e.printStackTrace();
@@ -98,7 +98,7 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        TastyToast.makeText(context, "Error : " +t.getMessage(), TastyToast.LENGTH_SHORT,TastyToast.ERROR);
+                        TastyToast.makeText(context, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 });
             }
@@ -108,7 +108,7 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
     private void ShowDiag() {
         Button done;
         dialog.setContentView(R.layout.succes);
-        done=dialog.findViewById(R.id.btn_done);
+        done = dialog.findViewById(R.id.btn_done);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();

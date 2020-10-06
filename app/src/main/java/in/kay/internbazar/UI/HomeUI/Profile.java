@@ -3,12 +3,16 @@ package in.kay.internbazar.UI.HomeUI;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,8 +43,6 @@ import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.R;
 import in.kay.internbazar.UI.Intro.AuthActivity;
 import in.kay.internbazar.Utils.Preference;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,23 +51,18 @@ import retrofit2.Response;
 public class Profile extends Fragment {
     Context mcontext;
     View view;
-    RelativeLayout rlLogout, rlHelp, rlProfile;
-    Dialog dialog;
+    RelativeLayout rlLogout, rlHelp, rlProfile, rlResume, rlPassword;
+    Dialog dialog, changeDiag;
     ImageView img;
     TextView tvname, tvemail;
     String uid, token;
     String baseUrl = "https://ui-avatars.com/api/?background=234&color=fff&size=256&rounded=true&name=";
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mcontext = context;
     }
-
-    private RequestBody createStringPart(String des_string)
-    {
-        return RequestBody.create(MultipartBody.FORM,des_string);
-    }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -78,20 +74,58 @@ public class Profile extends Fragment {
         token = Preference.getSharedPreferenceString(mcontext, "token", "");
         rlLogout = view.findViewById(R.id.rllogout);
         rlProfile = view.findViewById(R.id.rlProfile);
+        rlPassword = view.findViewById(R.id.rl_change_password);
+        rlResume = view.findViewById(R.id.rl_resume);
         img = view.findViewById(R.id.iv);
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         tvemail = view.findViewById(R.id.email);
         tvname = view.findViewById(R.id.name);
-        Toast.makeText(mcontext, "VALUE IS " + name + email, Toast.LENGTH_SHORT).show();
         tvname.setText(name);
         tvemail.setText(email);
         String url = baseUrl + name;
         Picasso.get().load(url).into(img);
+        rlPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rlPassword.setClickable(false);
+                ChangePasswordLogic();
+            }
+        });
+        rlResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<ResponseBody> call = RetrofitClient.getInstance().getApi().view(uid, "student", "Bearer " + token);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String string;
+                        try {
+                            if (response.code() == 200) {
+                                string = response.body().string();
+                                JSONObject jsonObject = new JSONObject(string);
+                                JSONObject child = jsonObject.getJSONObject("user");
+                                String resume = child.getString("resume");
+                                String url = "http://192.168.1.7:8080/" + resume;
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                            } else {
+                                string = response.errorBody().string();
+                                JSONObject jsonObject = new JSONObject(string);
+                                String errormsg = jsonObject.getString("message");
+                                TastyToast.makeText(mcontext, "Error :" + errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                            TastyToast.makeText(mcontext, "Error :" + e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        TastyToast.makeText(mcontext, "Error :" + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
         rlLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +138,11 @@ public class Profile extends Fragment {
                             @Override
                             public void onClick(iOSDialog dialog) {
                                 dialog.dismiss();
-                                Preference.setSharedPreferenceBoolean(mcontext, "isLoggedIn", false);
+                                String PREF_NAME = "PREF";
+                                SharedPreferences sharedPrefs = mcontext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPrefs.edit();
+                                editor.clear();
+                                editor.commit();
                                 Intent intent = new Intent(mcontext, AuthActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -122,9 +160,104 @@ public class Profile extends Fragment {
         rlProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rlProfile.setClickable(false);
                 ProfileDiag();
             }
         });
+    }
+
+    private void ChangePasswordLogic() {
+        changeDiag = new Dialog(mcontext);
+        final EditText etOldPassword, etNewPassword, etConfirmPassword;
+        Button submit;
+        changeDiag.setContentView(R.layout.change_password_diag);
+        submit = changeDiag.findViewById(R.id.btn_submit);
+        etOldPassword = changeDiag.findViewById(R.id.etOldPassword);
+        etNewPassword = changeDiag.findViewById(R.id.etNewPassword);
+        etConfirmPassword = changeDiag.findViewById(R.id.etConfirmPassword);
+        changeDiag.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        changeDiag.setCanceledOnTouchOutside(false);
+        changeDiag.setCancelable(false);
+        changeDiag.show();
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strOld, strNew, strConfirm;
+                strOld = etOldPassword.getText().toString();
+                strNew = etNewPassword.getText().toString();
+                strConfirm = etConfirmPassword.getText().toString();
+                if (strOld.isEmpty()) {
+                    etOldPassword.setError("Mobile cannot be empty");
+                    etOldPassword.requestFocus();
+                    return;
+                }
+                if (strNew.isEmpty()) {
+                    etOldPassword.setError("Mobile cannot be empty");
+                    etOldPassword.requestFocus();
+                    return;
+                }
+                if (strConfirm.isEmpty()) {
+                    etOldPassword.setError("Mobile cannot be empty");
+                    etOldPassword.requestFocus();
+                    return;
+                }
+                if (strOld.length() < 6) {
+                    etOldPassword.setError("Please check your old password");
+                    etOldPassword.requestFocus();
+                    return;
+                }
+                if (strNew.length() < 6) {
+                    etNewPassword.setError("New Password should atleast 6 char long");
+                    etNewPassword.requestFocus();
+                    return;
+                }
+                if (strConfirm.length() < 6) {
+                    etConfirmPassword.setError("New Password should atleast 6 char long");
+                    etConfirmPassword.requestFocus();
+                    return;
+                }
+                if (!strNew.equals(strConfirm)) {
+                    etConfirmPassword.setError("Passwords do not match");
+                    etNewPassword.setError("Passwords do not match");
+                    etConfirmPassword.requestFocus();
+                    etNewPassword.requestFocus();
+                    return;
+                } else {
+                    Call<ResponseBody> call = RetrofitClient.getInstance().getApi().resetPassword(uid, "student", strOld, strNew, strConfirm);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.code() == 200) {
+                                TastyToast.makeText(mcontext, "Successfully Changed your password ", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+
+                            } else {
+                                String error = "";
+                                try {
+                                    String s = response.errorBody().string();
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    JSONObject child = jsonObject.getJSONObject("data");
+                                    String msg = child.getString("msg");
+                                    error = msg.toUpperCase();
+
+                                } catch (IOException | JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                TastyToast.makeText(mcontext, "Error occured :" + error, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                            }
+                            changeDiag.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            TastyToast.makeText(mcontext, "Error occured " + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                            changeDiag.dismiss();
+                        }
+                    });
+                    rlPassword.setClickable(true);
+                }
+            }
+        });
+
     }
 
     private void ProfileDiag() {
@@ -136,6 +269,7 @@ public class Profile extends Fragment {
         ImageView close;
         Button submit;
         dialog.setContentView(R.layout.profile_diag);
+        dialog.findViewById(R.id.textview).setVisibility(View.GONE);
         etAboutme = dialog.findViewById(R.id.etAboutme);
         etName = dialog.findViewById(R.id.etName);
         etEmail = dialog.findViewById(R.id.etEmail);
@@ -155,11 +289,22 @@ public class Profile extends Fragment {
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    rlProfile.setClickable(true);
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        });
         dialog.show();
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                rlProfile.setClickable(true);
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -291,6 +436,7 @@ public class Profile extends Fragment {
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().edit(jsonObject, "Bearer " + token);
         final ProgressDialog pd = new ProgressDialog(mcontext);
         pd.setMax(100);
+        pd.setCancelable(false);
         pd.setMessage("Saving");
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.show();
@@ -331,4 +477,6 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
+
 }

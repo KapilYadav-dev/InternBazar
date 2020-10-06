@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/btm_notification"
         android:icon="@drawable/ic_cv"
         android:iconTint="@color/colorPrimary"
-        android:title="Application"/>
+        android:title="Application" />
     <item
         android:id="@+id/btm_home"
-        android:icon="@drawable/ic_home"
         android:checked="true"
+        android:icon="@drawable/ic_home"
         android:iconTint="@color/colorPrimary"
-        android:title="Home"/>
+        android:title="Home" />
     <item
         android:id="@+id/btm_profile"
         android:icon="@drawable/ic_profile"
