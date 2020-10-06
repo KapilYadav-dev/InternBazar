@@ -5,25 +5,24 @@ public class SliderItem {
     private String description;
     private String imageUrl;
 
+    public String getTitle() {
+        return title;
+    }
 
-    public SliderItem(String description, String imageUrl) {
+    private String title;
+
+
+    public SliderItem(String description, String imageUrl,String title) {
         this.description = description;
         this.imageUrl = imageUrl;
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 }

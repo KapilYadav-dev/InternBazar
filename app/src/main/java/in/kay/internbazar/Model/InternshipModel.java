@@ -1,29 +1,8 @@
 package in.kay.internbazar.Model;
 
 public class InternshipModel {
-    String _id, location, skillsReq, title, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v;
+    String _id,location,skillsReq,title,description,stipend,internshipPeriod,companyName,internshipType,applyBy,startDate,whocanApply,perks,__v;
     Integer vacancy;
-
-    public InternshipModel() {
-    }
-
-    public InternshipModel(String _id, String location, String skillsReq, String title, String description, String stipend, String internshipPeriod, String companyName, String internshipType, String applyBy, String startDate, String whocanApply, String perks, String __v, Integer vacancy) {
-        this._id = _id;
-        this.location = location;
-        this.skillsReq = skillsReq;
-        this.title = title;
-        this.description = description;
-        this.stipend = stipend;
-        this.internshipPeriod = internshipPeriod;
-        this.companyName = companyName;
-        this.internshipType = internshipType;
-        this.applyBy = applyBy;
-        this.startDate = startDate;
-        this.whocanApply = whocanApply;
-        this.perks = perks;
-        this.__v = __v;
-        this.vacancy = vacancy;
-    }
 
     public String get_id() {
         return _id;
@@ -142,6 +121,27 @@ public class InternshipModel {
     }
 
     public void setVacancy(Integer vacancy) {
+        this.vacancy = vacancy;
+    }
+
+    public InternshipModel() {
+    }
+
+    public InternshipModel(String _id, String location, String skillsReq, String title, String description, String stipend, String internshipPeriod, String companyName, String internshipType, String applyBy, String startDate, String whocanApply, String perks, String __v, Integer vacancy) {
+        this._id = _id;
+        this.location = location;
+        this.skillsReq = skillsReq;
+        this.title = title;
+        this.description = description;
+        this.stipend = stipend;
+        this.internshipPeriod = internshipPeriod;
+        this.companyName = companyName;
+        this.internshipType = internshipType;
+        this.applyBy = applyBy;
+        this.startDate = startDate;
+        this.whocanApply = whocanApply;
+        this.perks = perks;
+        this.__v = __v;
         this.vacancy = vacancy;
     }
 }

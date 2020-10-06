@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,20 +22,14 @@ public class Splash extends AppCompatActivity {
 
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash);
         videoView.setVideoURI(video);
-
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                startNextActivity();
-            }
-        });
-
         videoView.start();
-    }
-
-    private void startNextActivity() {
-        if (isFinishing())
-            return;
-        startActivity(new Intent(this, AuthActivity.class));
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(Splash.this, AuthActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }, 4000);
     }
 }

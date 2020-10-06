@@ -38,12 +38,13 @@ public class SliderAdapter extends
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
-
         SliderItem sliderItem = list.get(position);
-
         viewHolder.textViewDescription.setText(sliderItem.getDescription());
-        viewHolder.textViewDescription.setTextSize(16);
+        viewHolder.tvTitle.setText(sliderItem.getTitle());
+        viewHolder.textViewDescription.setTextSize(12);
+        viewHolder.tvTitle.setTextSize(24);
         viewHolder.textViewDescription.setTextColor(Color.WHITE);
+        viewHolder.tvTitle.setTextColor(Color.WHITE);
         Picasso.get().load(sliderItem.getImageUrl()).into(viewHolder.imageViewBackground);
     }
 
@@ -57,12 +58,13 @@ public class SliderAdapter extends
 
         View itemView;
         ImageView imageViewBackground;
-        TextView textViewDescription;
+        TextView textViewDescription,tvTitle;
 
         public SliderAdapterVH(View itemView) {
             super(itemView);
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
-            textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
+            textViewDescription = itemView.findViewById(R.id.tv_text);
+            tvTitle = itemView.findViewById(R.id.tv_title);
             this.itemView = itemView;
         }
     }
