@@ -22,6 +22,9 @@ import in.kay.internbazar.Adapter.InternshipAdapter;
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.Model.InternshipModel;
 import in.kay.internbazar.R;
+import it.gmariotti.recyclerview.adapter.AlphaAnimatorAdapter;
+import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
+import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,7 +94,8 @@ public class Detail extends AppCompatActivity {
                             Integer vacancy = child.getInt("vacancy");
                             models.add(new InternshipModel(_id, location, strskillsReq, cap, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v, vacancy));
                             adapter = new InternshipAdapter(models, getBaseContext());
-                            recyclerView.setAdapter(adapter);
+                            SlideInBottomAnimatorAdapter animatorAdapter=new SlideInBottomAnimatorAdapter(adapter,recyclerView);
+                            recyclerView.setAdapter(animatorAdapter);
                             adapter.notifyDataSetChanged();
                         }
                     } else {

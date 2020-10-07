@@ -21,7 +21,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_slider_mainActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -118,32 +117,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_wfh"
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/et_card">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_work_from_home" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/sens_regular"
-                            android:text="Work from home"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_delhi"
@@ -348,7 +321,6 @@
                 app:layout_constraintVertical_bias="0.050000012" />
 
             <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

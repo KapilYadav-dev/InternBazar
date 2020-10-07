@@ -16,15 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.sdsmdg.tastytoast.TastyToast;
-import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -200,24 +197,13 @@ public class Login extends Fragment {
                         JSONObject jsonObject = new JSONObject(string);
                         JSONObject child = jsonObject.getJSONObject("data");
                         String message = child.getString("msg");
-                        String id = child.getString("id");
-                        Toast.makeText(mcontext, "" + message, Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(mcontext,"Error : "+message,TastyToast.LENGTH_LONG,TastyToast.WARNING);
                         if (message.equalsIgnoreCase("otp sent please verify yourself")) {
+                            String id = child.getString("id");
                             OTPPopup(id);
                         }
-                        Alerter.create(getActivity())
-                                .setTitle("Error ")
-                                .setBackgroundColorRes(R.color.colorPrimary)
-                                .setTitleAppearance(R.style.AlertTextAppearance_Title)
-                                .setTitleTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_bold.ttf"))
-                                .setText(message)
-                                .setTextAppearance(R.style.AlertTextAppearance_Text)
-                                .setTextTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_regular.ttf"))
-                                .show();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -304,15 +290,7 @@ public class Login extends Fragment {
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
                                 otpTextView.showError();
-                                Alerter.create(getActivity())
-                                        .setTitle("Error ")
-                                        .setBackgroundColorRes(R.color.colorPrimary)
-                                        .setTitleAppearance(R.style.AlertTextAppearance_Title)
-                                        .setTitleTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_bold.ttf"))
-                                        .setText("Invalid OTP")
-                                        .setTextAppearance(R.style.AlertTextAppearance_Text)
-                                        .setTextTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_regular.ttf"))
-                                        .show();
+                                TastyToast.makeText(mcontext,"Invalid OTP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

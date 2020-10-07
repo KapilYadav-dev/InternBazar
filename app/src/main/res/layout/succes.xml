@@ -16,7 +16,6 @@
         android:padding="10dp">
 
         <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:layout_centerHorizontal="true"

@@ -50,7 +50,6 @@ public class Home extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.rl_international).setClickable(true);
         view.findViewById(R.id.rl_kolkata).setClickable(true);
         view.findViewById(R.id.rl_mumbai).setClickable(true);
-        view.findViewById(R.id.rl_wfh).setClickable(true);
         view.findViewById(R.id.tv_view_all).setClickable(true);
         view.findViewById(R.id.rl_ngo).setClickable(true);
         view.findViewById(R.id.rl_mba).setClickable(true);
@@ -73,7 +72,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private void Slider() {
         sliderView = view.findViewById(R.id.imageSlider);
         list.add(new SliderItem("One meaningful internship at a time.", "https://1.bp.blogspot.com/-jyXTHlkvooI/X3v8yXQ9ZmI/AAAAAAAAABY/GCsdQczEdiwAzzbxhz6k1yMqg2sspbZqACNcBGAsYHQ/s1632/r1920.png","Welcome to InterBazaar"));
-        list.add(new SliderItem("Get all latest course notifications..", "https://cdn.dribbble.com/users/4214751/screenshots/10503785/media/8ddd53e41258703dc23cc8bd3ca68afd.png","Notification"));
+        list.add(new SliderItem("Get all latest course notifications..", "https://cdn.dribbble.com/users/4214751/screenshots/10503785/media/8ddd53e41258703dc23cc8bd3ca68afd.png","Applications"));
         list.add(new SliderItem("Apply many internships at a time", "https://1.bp.blogspot.com/-mkJnqu3-Eos/X3v8iXRaEII/AAAAAAAAABQ/HYf_N5ybAnIyUcWpA8MjALGcsxcYCbkMQCNcBGAsYHQ/s827/new.png","Earn great Stipend"));
         adapter = new SliderAdapter(mcontext, list);
         sliderView.setSliderAdapter(adapter);
@@ -95,7 +94,6 @@ public class Home extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.rl_international).setOnClickListener(this);
         view.findViewById(R.id.rl_kolkata).setOnClickListener(this);
         view.findViewById(R.id.rl_mumbai).setOnClickListener(this);
-        view.findViewById(R.id.rl_wfh).setOnClickListener(this);
         view.findViewById(R.id.tv_view_all).setOnClickListener(this);
         view.findViewById(R.id.rl_ngo).setOnClickListener(this);
         view.findViewById(R.id.rl_mba).setOnClickListener(this);

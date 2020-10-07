@@ -2,6 +2,7 @@ package in.kay.internbazar.UI.HomeUI;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,12 +12,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.androidstudy.networkmanager.Monitor;
+import com.androidstudy.networkmanager.Tovuti;
 import com.fxn.BubbleTabBar;
 import com.fxn.OnBubbleClickListener;
+import com.gdacciaro.iOSDialog.iOSDialog;
+import com.gdacciaro.iOSDialog.iOSDialogBuilder;
+import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.google.gson.JsonObject;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void DoWork(String aboutme, String additional, String education, String jobs, String name, String skills, String links, String location, String mobile, String uid, String token) {
+    private void DoWork(String aboutme, String additional, String education, String jobs, String name, String skills, String links, String location, String mobile, final String uid, String token) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userId", uid);
         jsonObject.addProperty("userType", "student");
@@ -172,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (response.code() == 200) {
                         TastyToast.makeText(getBaseContext(), "Successfully updated profile. ", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                        CreateResume(uid);
                     } else {
                         string = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(string);
@@ -196,6 +204,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void CreateResume(String uid) {
+        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createResume(uid);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(MainActivity.this, "Response Code is "+response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void bottomMenu() {
         bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
@@ -209,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new Profile();
                         break;
                     case R.id.btm_notification:
-                        fragment = new Notification();
+                        fragment = new Applications();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
@@ -219,5 +242,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        new iOSDialogBuilder(this)
+                .setTitle("Exit")
+                .setSubtitle("Ohh no! You're leaving...\nAre you sure?")
+                .setCancelable(false)
+                .setPositiveListener(getString(R.string.ok), new iOSDialogClickListener() {
+                    @Override
+                    public void onClick(iOSDialog dialog) {
+                        dialog.dismiss();
+                        CloseApp();
+                    }
+                })
+                .setNegativeListener(getString(R.string.dismiss), new iOSDialogClickListener() {
+                    @Override
+                    public void onClick(iOSDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build().show();
+    }
+
+    private void CloseApp() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+        int pid = android.os.Process.myPid();
+        android.os.Process.killProcess(pid);
     }
 }

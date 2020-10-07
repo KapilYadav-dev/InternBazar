@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -21,16 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.sdsmdg.tastytoast.TastyToast;
-import com.tapadoo.alerter.Alerter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
 import in.kay.internbazar.Api.RetrofitClient;
@@ -157,15 +151,7 @@ public class Signup extends Fragment {
                         JSONArray array = jsonObject.getJSONArray("data");
                         JSONObject child = array.getJSONObject(0);
                         message = child.getString("msg");
-                        Alerter.create(getActivity())
-                                .setTitle("Error ")
-                                .setBackgroundColorRes(R.color.colorPrimary)
-                                .setTitleAppearance(R.style.AlertTextAppearance_Title)
-                                .setTitleTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_bold.ttf"))
-                                .setText(message)
-                                .setTextAppearance(R.style.AlertTextAppearance_Text)
-                                .setTextTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_regular.ttf"))
-                                .show();
+                        TastyToast.makeText(mcontext,"Error : "+message,TastyToast.LENGTH_LONG,TastyToast.WARNING);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -229,15 +215,7 @@ public class Signup extends Fragment {
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
                                 otpTextView.showError();
-                                Alerter.create(getActivity())
-                                        .setTitle("Error ")
-                                        .setBackgroundColorRes(R.color.colorPrimary)
-                                        .setTitleAppearance(R.style.AlertTextAppearance_Title)
-                                        .setTitleTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_bold.ttf"))
-                                        .setText("Invalid OTP")
-                                        .setTextAppearance(R.style.AlertTextAppearance_Text)
-                                        .setTextTypeface(Typeface.createFromAsset(mcontext.getAssets(), "sans_regular.ttf"))
-                                        .show();
+                                TastyToast.makeText(mcontext,"Invalid OTP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

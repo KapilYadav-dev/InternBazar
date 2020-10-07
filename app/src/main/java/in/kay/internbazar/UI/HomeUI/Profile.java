@@ -121,7 +121,6 @@ public class Profile extends Fragment {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         TastyToast.makeText(mcontext, "Error :" + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
-                        dialog.dismiss();
                     }
                 });
             }
@@ -130,8 +129,8 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View view) {
                 new iOSDialogBuilder(mcontext)
-                        .setTitle(getString(R.string.logout))
-                        .setSubtitle(getString(R.string.logout_msg))
+                        .setTitle("See you soon,")
+                        .setSubtitle("Ohh no! You're leaving...\nAre you sure?")
                         .setFont(Typeface.createFromAsset(getContext().getAssets(), "sans_regular.ttf"))
                         .setCancelable(false)
                         .setPositiveListener(getString(R.string.ok), new iOSDialogClickListener() {

@@ -10,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -73,14 +74,6 @@ public interface ApiInterface {
             @Field("internshipId") String internshipId,
             @Field("userId") String userId,
             @Header("Authorization") String header);
-
-    //My Applications
-    @FormUrlEncoded
-    @POST("internship/myapplications")
-    Call<ResponseBody> myApplications(
-            @Field("userId") String userId,
-            @Header("Authorization") String header);
-
     //Profile
     @FormUrlEncoded
     @POST("profile/view")
@@ -93,5 +86,9 @@ public interface ApiInterface {
     Call<ResponseBody> edit(
             @Body JsonObject data,
             @Header("Authorization") String header);
+
+    @GET("internship/resume/{uid}")
+    Call<ResponseBody> createResume(
+            @Path("uid") String uid);
 
 }
