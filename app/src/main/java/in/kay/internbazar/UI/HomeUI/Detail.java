@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONArray;
@@ -92,7 +93,9 @@ public class Detail extends AppCompatActivity {
                             String perks = child.getString("perks");
                             String __v = child.getString("__v");
                             Integer vacancy = child.getInt("vacancy");
-                            models.add(new InternshipModel(_id, location, strskillsReq, cap, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v, vacancy));
+                            if (!DateTimeUtils.isToday(applyBy+" 23:59:59")) {
+                                models.add(new InternshipModel(_id, location, strskillsReq, cap, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v, vacancy));
+                            }
                             adapter = new InternshipAdapter(models, getBaseContext());
                             SlideInBottomAnimatorAdapter animatorAdapter=new SlideInBottomAnimatorAdapter(adapter,recyclerView);
                             recyclerView.setAdapter(animatorAdapter);

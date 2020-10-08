@@ -56,10 +56,10 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        String startDate=list.get(position).getStartDate();
-        String endDate=list.get(position).getApplyBy();
-        String strStartDate= DateTimeUtils.formatWithStyle(startDate, DateTimeStyle.LONG);
-        String strEndDate= DateTimeUtils.formatWithStyle(endDate, DateTimeStyle.LONG);
+        String startDate = list.get(position).getStartDate();
+        String endDate = list.get(position).getApplyBy();
+        String strStartDate = DateTimeUtils.formatWithStyle(startDate, DateTimeStyle.LONG);
+        String strEndDate = DateTimeUtils.formatWithStyle(endDate, DateTimeStyle.LONG);
         holder.tvTitle.setText(list.get(position).getTitle());
         holder.tvCompany.setText(list.get(position).getCompanyName());
         holder.tvLocation.setText(list.get(position).getLocation().toUpperCase());
