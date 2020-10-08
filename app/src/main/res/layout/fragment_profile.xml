@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,7 +30,7 @@
             android:fontFamily="@font/sens_regular"
             android:text="Kapil Yadav"
             android:textColor="#000000"
-            android:textSize="30dp"
+            android:textSize="34dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +43,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4D000000"
+            android:background="#67000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +56,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sens_regular"
             android:text="tenp@mail.com"
-            android:textColor="#8A000000"
+            android:textColor="#B9000000"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,8 +82,8 @@
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_profile" />
 
             <TextView
@@ -92,11 +91,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/profile"
-                android:fontFamily="@font/assistant_semibold"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingStart="20dp"
                 android:text="Profile"
-                android:textColor="#C9000000"
-                android:textSize="26dp" />
+                android:textColor="#B5555555"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -104,9 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-         
+
             android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,8 +123,8 @@
 
             <ImageView
                 android:id="@+id/help"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_help" />
 
             <TextView
@@ -126,11 +132,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/help"
-                android:fontFamily="@font/assistant_semibold"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingStart="20dp"
                 android:text="Help and Support"
-                android:textColor="#C9000000"
-                android:textSize="26dp" />
+                android:textColor="#B5555555"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -138,9 +151,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-         
             android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,9 +162,16 @@
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more" />
+
+            <ImageView
                 android:id="@+id/password"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_edit" />
 
             <TextView
@@ -160,11 +179,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/password"
-                android:fontFamily="@font/assistant_semibold"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingStart="20dp"
                 android:text="Change Password"
-                android:textColor="#C9000000"
-                android:textSize="26dp" />
+                android:textColor="#B5555555"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -172,9 +191,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-         
+
             android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -184,9 +203,16 @@
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more" />
+
+            <ImageView
                 android:id="@+id/resume"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_cv" />
 
             <TextView
@@ -194,11 +220,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/resume"
-                android:fontFamily="@font/assistant_semibold"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingStart="20dp"
                 android:text="View Resume"
-                android:textColor="#C9000000"
-                android:textSize="26dp" />
+                android:textColor="#B5555555"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -206,9 +232,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-         
+
             android:padding="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -219,8 +245,8 @@
 
             <ImageView
                 android:id="@+id/signout"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_sign_out" />
 
             <TextView
@@ -228,11 +254,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/signout"
-                android:fontFamily="@font/assistant_semibold"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingStart="20dp"
                 android:text="Log-out"
-                android:textColor="#C9000000"
-                android:textSize="26dp" />
+                android:textColor="#B5555555"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <View

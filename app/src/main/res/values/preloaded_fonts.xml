@@ -3,6 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/assistant_semibold</item>
         <item>@font/lato_light</item>
+        <item>@font/poppins_semibold</item>
         <item>@font/roboto</item>
     </array>
 </resources>

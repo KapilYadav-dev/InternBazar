@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import in.kay.internbazar.Api.RetrofitClient;
+import in.kay.internbazar.Const.constant;
 import in.kay.internbazar.R;
 import in.kay.internbazar.UI.Intro.AuthActivity;
 import in.kay.internbazar.Utils.Preference;
@@ -104,7 +106,7 @@ public class Profile extends Fragment {
                                 JSONObject jsonObject = new JSONObject(string);
                                 JSONObject child = jsonObject.getJSONObject("user");
                                 String resume = child.getString("resume");
-                                String url = "http://192.168.1.7:8080/" + resume;
+                                String url = constant.baseUrl+ resume;
                                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                             } else {
                                 string = response.errorBody().string();
@@ -168,16 +170,25 @@ public class Profile extends Fragment {
     private void ChangePasswordLogic() {
         changeDiag = new Dialog(mcontext);
         final EditText etOldPassword, etNewPassword, etConfirmPassword;
+        ImageView close;
         Button submit;
         changeDiag.setContentView(R.layout.change_password_diag);
         submit = changeDiag.findViewById(R.id.btn_submit);
         etOldPassword = changeDiag.findViewById(R.id.etOldPassword);
+        close = changeDiag.findViewById(R.id.close);
         etNewPassword = changeDiag.findViewById(R.id.etNewPassword);
         etConfirmPassword = changeDiag.findViewById(R.id.etConfirmPassword);
         changeDiag.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         changeDiag.setCanceledOnTouchOutside(false);
         changeDiag.setCancelable(false);
         changeDiag.show();
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeDiag.dismiss();
+                rlPassword.setClickable(true);
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,16 +275,14 @@ public class Profile extends Fragment {
         uid = Preference.getSharedPreferenceString(mcontext, "uid", "");
         token = Preference.getSharedPreferenceString(mcontext, "token", "");
         dialog = new Dialog(mcontext);
-        final EditText etName, etEmail, etMobile, etAboutme, etLocation, etEducation, etSkills, etJobs, etLinks, etAdditional;
+        final EditText etName, etMobile, etAboutme, etLocation, etEducation, etSkills, etJobs, etLinks, etAdditional;
         ImageView close;
         Button submit;
         dialog.setContentView(R.layout.profile_diag);
         dialog.findViewById(R.id.textview).setVisibility(View.GONE);
         etAboutme = dialog.findViewById(R.id.etAboutme);
         etName = dialog.findViewById(R.id.etName);
-        etEmail = dialog.findViewById(R.id.etEmail);
         etName.setText(Preference.getSharedPreferenceString(mcontext, "name", ""));
-        etEmail.setText(Preference.getSharedPreferenceString(mcontext, "email", ""));
         etLocation = dialog.findViewById(R.id.etlocation);
         etEducation = dialog.findViewById(R.id.etEducation);
         etSkills = dialog.findViewById(R.id.etSkills);
@@ -288,16 +297,7 @@ public class Profile extends Fragment {
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.setCanceledOnTouchOutside(false);
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    rlProfile.setClickable(true);
-                    dialog.dismiss();
-                }
-                return true;
-            }
-        });
+        dialog.setCancelable(false);
         dialog.show();
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,7 +309,6 @@ public class Profile extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
                 String location = etLocation.getText().toString();
                 String aboutme = etAboutme.getText().toString();
                 String name = etName.getText().toString();
@@ -322,16 +321,6 @@ public class Profile extends Fragment {
                 if (name.isEmpty()) {
                     etName.setError("Name cannot be empty");
                     etName.requestFocus();
-                    return;
-                }
-                if (email.isEmpty()) {
-                    etEmail.setError("Email cannot be empty");
-                    etEmail.requestFocus();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    etEmail.setError("Please enter a valid email id");
-                    etEmail.requestFocus();
                     return;
                 }
                 if (mobile.isEmpty()) {
@@ -400,24 +389,22 @@ public class Profile extends Fragment {
                         string = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(string);
                         String errormsg = jsonObject.getString("message");
-                        TastyToast.makeText(mcontext, "Error :" + errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                        dialog.dismiss();
+                        TastyToast.makeText(mcontext, "Error : "+errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
                     }
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
-                    TastyToast.makeText(mcontext, "Error :" + e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                    dialog.dismiss();
-                }
+                    TastyToast.makeText(mcontext, "Error : Please fill this from for your Profile..", TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                }rlPassword.setClickable(true);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                TastyToast.makeText(mcontext, "Error :" + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
             }
         });
     }
 
-    private void DoWork(String aboutme, String additional, String education, String jobs, final String name, String skills, String links, String location, String mobile, String uid, String token) {
+    private void DoWork(String aboutme, String additional, String education, String jobs, final String name, String skills, String links, String location, String mobile, final String uid, String token) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userId", uid);
         jsonObject.addProperty("userType", "student");
@@ -447,6 +434,7 @@ public class Profile extends Fragment {
                     if (response.code() == 200) {
                         TastyToast.makeText(mcontext, "Successfully updated profile. ", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                         Preference.setSharedPreferenceString(mcontext, "name", name);
+                        CreateResume(uid);
                     } else {
                         string = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(string);
@@ -457,6 +445,7 @@ public class Profile extends Fragment {
                     e.printStackTrace();
                     TastyToast.makeText(mcontext, "Error : " + e.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.WARNING);
                 }
+                rlProfile.setClickable(true);
                 dialog.dismiss();
                 pd.dismiss();
             }
@@ -466,6 +455,21 @@ public class Profile extends Fragment {
                 TastyToast.makeText(mcontext, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                 pd.dismiss();
                 dialog.dismiss();
+
+            }
+        });
+    }
+
+    private void CreateResume(String uid) {
+        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createResume(uid);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });

@@ -82,7 +82,7 @@ public interface ApiInterface {
             @Field("userType") String userType,
             @Header("Authorization") String header);
 
-    @POST("profile/edit")
+    @POST("profile/editmobile")
     Call<ResponseBody> edit(
             @Body JsonObject data,
             @Header("Authorization") String header);
