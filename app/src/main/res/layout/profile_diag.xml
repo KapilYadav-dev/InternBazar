@@ -21,19 +21,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39" />
 
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sans_bold"
-            android:text="Please fill this one time form"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/close"
-            app:layout_constraintVertical_bias="0.100000024" />
 
         <TextView
             android:id="@+id/textView1"

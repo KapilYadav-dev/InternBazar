@@ -3,7 +3,6 @@ package in.kay.internbazar.UI.HomeUI;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,8 +10,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,28 +19,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.google.gson.JsonObject;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.Const.constant;
 import in.kay.internbazar.R;
 import in.kay.internbazar.UI.Intro.AuthActivity;
+import in.kay.internbazar.Utils.CheckInternet;
 import in.kay.internbazar.Utils.Preference;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -95,6 +87,7 @@ public class Profile extends Fragment {
         rlResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rlResume.setClickable(false);
                 Call<ResponseBody> call = RetrofitClient.getInstance().getApi().view(uid, "student", "Bearer " + token);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -279,7 +272,6 @@ public class Profile extends Fragment {
         ImageView close;
         Button submit;
         dialog.setContentView(R.layout.profile_diag);
-        dialog.findViewById(R.id.textview).setVisibility(View.GONE);
         etAboutme = dialog.findViewById(R.id.etAboutme);
         etName = dialog.findViewById(R.id.etName);
         etName.setText(Preference.getSharedPreferenceString(mcontext, "name", ""));
@@ -421,11 +413,6 @@ public class Profile extends Fragment {
         jsonObject.add("data", data);
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().edit(jsonObject, "Bearer " + token);
         final ProgressDialog pd = new ProgressDialog(mcontext);
-        pd.setMax(100);
-        pd.setCancelable(false);
-        pd.setMessage("Saving");
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pd.show();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -434,6 +421,7 @@ public class Profile extends Fragment {
                     if (response.code() == 200) {
                         TastyToast.makeText(mcontext, "Successfully updated profile. ", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                         Preference.setSharedPreferenceString(mcontext, "name", name);
+                        Preference.setSharedPreferenceBoolean(mcontext, "profileDone", true);
                         CreateResume(uid);
                     } else {
                         string = response.errorBody().string();
@@ -447,13 +435,11 @@ public class Profile extends Fragment {
                 }
                 rlProfile.setClickable(true);
                 dialog.dismiss();
-                pd.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 TastyToast.makeText(mcontext, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                pd.dismiss();
                 dialog.dismiss();
 
             }
@@ -481,5 +467,9 @@ public class Profile extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        rlResume.setClickable(true);
+    }
 }

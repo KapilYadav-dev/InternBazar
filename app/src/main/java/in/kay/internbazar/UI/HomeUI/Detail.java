@@ -1,6 +1,7 @@
 package in.kay.internbazar.UI.HomeUI;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.thunder413.datetimeutils.DateTimeUtils;
 import com.sdsmdg.tastytoast.TastyToast;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +25,7 @@ import in.kay.internbazar.Adapter.InternshipAdapter;
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.Model.InternshipModel;
 import in.kay.internbazar.R;
-import it.gmariotti.recyclerview.adapter.AlphaAnimatorAdapter;
-import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
+import in.kay.internbazar.Utils.CheckInternet;
 import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,11 +51,32 @@ public class Detail extends AppCompatActivity {
             call = RetrofitClient.getInstance().getApi().getInternshipAll();
         } else if (type.equalsIgnoreCase("City")) {
             call = RetrofitClient.getInstance().getApi().getInternshipByLocation(query);
-
         } else if (type.equalsIgnoreCase("Category")) {
             call = RetrofitClient.getInstance().getApi().getInternshipByInternshipType(query);
         }
         DoWork(call);
+        RefreshData();
+    }
+
+    private void RefreshData() {
+        final PullToRefreshView mPullToRefreshView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshView.setRefreshing(false);
+                        Intent intent = getIntent();
+                        overridePendingTransition(0, 0);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(intent);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     private void DoWork(Call<ResponseBody> call) {
@@ -93,13 +115,12 @@ public class Detail extends AppCompatActivity {
                             String perks = child.getString("perks");
                             String __v = child.getString("__v");
                             Integer vacancy = child.getInt("vacancy");
-                            if (!DateTimeUtils.isToday(applyBy+" 23:59:59")) {
+                            if (!DateTimeUtils.isToday(applyBy + " 23:59:59")) {
                                 models.add(new InternshipModel(_id, location, strskillsReq, cap, description, stipend, internshipPeriod, companyName, internshipType, applyBy, startDate, whocanApply, perks, __v, vacancy));
                             }
                             adapter = new InternshipAdapter(models, getBaseContext());
-                            SlideInBottomAnimatorAdapter animatorAdapter=new SlideInBottomAnimatorAdapter(adapter,recyclerView);
+                            SlideInBottomAnimatorAdapter animatorAdapter = new SlideInBottomAnimatorAdapter(adapter, recyclerView);
                             recyclerView.setAdapter(animatorAdapter);
-                            adapter.notifyDataSetChanged();
                         }
                     } else {
                         string = response.errorBody().string();
@@ -127,5 +148,12 @@ public class Detail extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        CheckInternet checkInternet = new CheckInternet();
+        checkInternet.Check(this);
     }
 }

@@ -91,10 +91,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/profile"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/assistant_semibold"
                 android:paddingStart="20dp"
                 android:text="Profile"
-                android:textColor="#B5555555"
+                android:textColor="#80000234"
                 android:textSize="18sp" />
 
             <ImageView
@@ -132,10 +132,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/help"
-                android:fontFamily="@font/poppins_semibold"
+                         android:fontFamily="@font/assistant_semibold"
                 android:paddingStart="20dp"
                 android:text="Help and Support"
-                android:textColor="#B5555555"
+                  android:textColor="#80000234"
                 android:textSize="18sp" />
 
             <ImageView
@@ -179,10 +179,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/password"
-                android:fontFamily="@font/poppins_semibold"
+                         android:fontFamily="@font/assistant_semibold"
                 android:paddingStart="20dp"
                 android:text="Change Password"
-                android:textColor="#B5555555"
+                  android:textColor="#80000234"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -220,10 +220,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/resume"
-                android:fontFamily="@font/poppins_semibold"
+                         android:fontFamily="@font/assistant_semibold"
                 android:paddingStart="20dp"
                 android:text="View Resume"
-                android:textColor="#B5555555"
+                  android:textColor="#80000234"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -254,10 +254,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/signout"
-                android:fontFamily="@font/poppins_semibold"
+                         android:fontFamily="@font/assistant_semibold"
                 android:paddingStart="20dp"
                 android:text="Log-out"
-                android:textColor="#B5555555"
+                  android:textColor="#80000234"
                 android:textSize="18sp" />
         </RelativeLayout>
 

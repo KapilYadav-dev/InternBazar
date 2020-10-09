@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="ok">Yes</string>
     <string name="dismiss">No</string>
+    <string name="app_name_mine">InternBazaar</string>
+    <string name="retry">Retry</string>
 </resources>

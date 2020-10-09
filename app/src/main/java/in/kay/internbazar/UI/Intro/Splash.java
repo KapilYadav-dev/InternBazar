@@ -10,6 +10,8 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import in.kay.internbazar.R;
+import in.kay.internbazar.UI.HomeUI.MainActivity;
+import in.kay.internbazar.Utils.Preference;
 
 public class Splash extends AppCompatActivity {
     VideoView videoView;
@@ -25,9 +27,12 @@ public class Splash extends AppCompatActivity {
         videoView.start();
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() {
-                Intent i = new Intent(Splash.this, AuthActivity.class);
-                startActivity(i);
+            public void run() { Boolean isLoggedIn = Preference.getSharedPreferenceBoolean(Splash.this, "isLoggedIn", false);
+                if (isLoggedIn) {
+                    startActivity(new Intent(Splash.this, MainActivity.class));
+                } else {
+                    startActivity(new Intent(Splash.this, AuthActivity.class));
+                }
                 finish();
             }
         }, 4000);

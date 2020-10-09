@@ -11,6 +11,7 @@ import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import in.kay.internbazar.R;
+import in.kay.internbazar.Utils.CheckInternet;
 
 public class MainActivity extends AppCompatActivity {
     BubbleTabBar bubbleTabBar;
@@ -74,5 +75,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         int pid = android.os.Process.myPid();
         android.os.Process.killProcess(pid);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        CheckInternet checkInternet=new CheckInternet();
+        checkInternet.Check(this);
     }
 }

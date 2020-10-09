@@ -78,35 +78,40 @@ public class InternshipAdapter extends RecyclerView.Adapter<InternshipAdapter.Vi
                 holder.foldingCell.toggle(false);
             }
         });
+
         holder.apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new Dialog(view.getContext());
-                Call<ResponseBody> call = RetrofitClient.getInstance().getApi().applyInternship(list.get(position).get_id(), uid, "Bearer " + token);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String string;
-                        try {
-                            if (response.code() == 200) {
-                                ShowDiag();
-                                TastyToast.makeText(context, "Successfully applied to " + list.get(position).getTitle(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
-                            } else {
-                                string = response.errorBody().string();
-                                JSONObject jsonObject = new JSONObject(string);
-                                String errormsg = jsonObject.getString("message");
-                                TastyToast.makeText(context, "Error : " + errormsg, TastyToast.LENGTH_SHORT, TastyToast.WARNING);
+                if (Preference.getSharedPreferenceBoolean(context, "profileDone", false)) {
+                    dialog = new Dialog(view.getContext());
+                    Call<ResponseBody> call = RetrofitClient.getInstance().getApi().applyInternship(list.get(position).get_id(), uid, "Bearer " + token);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            String string;
+                            try {
+                                if (response.code() == 200) {
+                                    ShowDiag();
+                                    TastyToast.makeText(context, "Successfully applied to " + list.get(position).getTitle(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                                } else {
+                                    string = response.errorBody().string();
+                                    JSONObject jsonObject = new JSONObject(string);
+                                    String errormsg = jsonObject.getString("message");
+                                    TastyToast.makeText(context, "Error : " + errormsg, TastyToast.LENGTH_SHORT, TastyToast.WARNING);
+                                }
+                            } catch (IOException | JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException | JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        TastyToast.makeText(context, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            TastyToast.makeText(context, "Error : " + t.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR);
+                        }
+                    });
+                } else {
+                    TastyToast.makeText(context, "Please complete your profile first...", TastyToast.LENGTH_LONG, TastyToast.INFO);
+                }
             }
         });
     }

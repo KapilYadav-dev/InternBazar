@@ -211,6 +211,7 @@ public class Signup extends Fragment {
                                 Preference.setSharedPreferenceString(mcontext, "token", token);
                                 Preference.setSharedPreferenceString(mcontext, "email", email);
                                 Preference.setSharedPreferenceString(mcontext, "name", name);
+                                Preference.setSharedPreferenceBoolean(mcontext, "profileDone", false);
                                 TastyToast.makeText(mcontext, "You are successfully registered.", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             } else {
