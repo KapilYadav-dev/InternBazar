@@ -17,8 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:label">
+        <activity android:name=".UI.HomeUI.UploadImage"></activity>
         <activity
             android:name=".UI.HomeUI.Detail"
             android:configChanges="orientation|keyboardHidden|screenSize" />

@@ -1,7 +1,6 @@
 package in.kay.internbazar.UI.HomeUI;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +9,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,23 +19,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.google.gson.JsonObject;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
+
 import in.kay.internbazar.Api.RetrofitClient;
 import in.kay.internbazar.Const.constant;
 import in.kay.internbazar.R;
 import in.kay.internbazar.UI.Intro.AuthActivity;
-import in.kay.internbazar.Utils.CheckInternet;
 import in.kay.internbazar.Utils.Preference;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,64 +66,46 @@ public class Profile extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        String name = Preference.getSharedPreferenceString(mcontext, "name", "");
-        String email = Preference.getSharedPreferenceString(mcontext, "email", "");
-        uid = Preference.getSharedPreferenceString(mcontext, "uid", "");
-        token = Preference.getSharedPreferenceString(mcontext, "token", "");
-        rlLogout = view.findViewById(R.id.rllogout);
-        rlProfile = view.findViewById(R.id.rlProfile);
-        rlPassword = view.findViewById(R.id.rl_change_password);
-        rlResume = view.findViewById(R.id.rl_resume);
-        img = view.findViewById(R.id.iv);
-        tvemail = view.findViewById(R.id.email);
-        tvname = view.findViewById(R.id.name);
-        tvname.setText(name);
-        tvemail.setText(email);
-        String url = baseUrl + name;
-        Picasso.get().load(url).into(img);
-        rlPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rlPassword.setClickable(false);
-                ChangePasswordLogic();
-            }
-        });
-        rlResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rlResume.setClickable(false);
-                Call<ResponseBody> call = RetrofitClient.getInstance().getApi().view(uid, "student", "Bearer " + token);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String string;
-                        try {
-                            if (response.code() == 200) {
-                                string = response.body().string();
-                                JSONObject jsonObject = new JSONObject(string);
-                                JSONObject child = jsonObject.getJSONObject("user");
-                                String resume = child.getString("resume");
-                                String url = constant.baseUrl+ resume;
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                            } else {
-                                string = response.errorBody().string();
-                                JSONObject jsonObject = new JSONObject(string);
-                                String errormsg = jsonObject.getString("message");
-                                TastyToast.makeText(mcontext, "Error :" + errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                            }
-                        } catch (IOException | JSONException e) {
-                            e.printStackTrace();
-                            TastyToast.makeText(mcontext, "Error :" + e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                        }
-                    }
+        initz();
+        ResetPasswordLogic();
+        ResumeLogic();
+        LogoutLogic();
+        ProfileLogic();
+        ChooseImageLogic();
+    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        TastyToast.makeText(mcontext, "Error :" + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
-                    }
-                });
+
+    private void LoadUI() {
+        String imageUrl=Preference.getSharedPreferenceString(mcontext,"imageUrl","");
+        String name=Preference.getSharedPreferenceString(mcontext,"name","");
+        if (imageUrl.equalsIgnoreCase("") && TextUtils.isEmpty(imageUrl)) {
+            String url = baseUrl + name;
+            Picasso.get().load(url).placeholder(R.drawable.kaydev).into(img);
+        } else {
+            Picasso.get().load(imageUrl).placeholder(R.drawable.kaydev).into(img);
+        }
+    }
+
+    private void ChooseImageLogic() {
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mcontext,UploadImage.class));
             }
         });
+    }
+
+    private void ProfileLogic() {
+        rlProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rlProfile.setClickable(false);
+                ProfileDiag();
+            }
+        });
+    }
+
+    private void LogoutLogic() {
         rlLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,13 +137,71 @@ public class Profile extends Fragment {
                         .build().show();
             }
         });
-        rlProfile.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void ResumeLogic() {
+        rlResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rlProfile.setClickable(false);
-                ProfileDiag();
+                rlResume.setClickable(false);
+                Call<ResponseBody> call = RetrofitClient.getInstance().getApi().view(uid, "student", "Bearer " + token);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String string;
+                        try {
+                            if (response.code() == 200) {
+                                string = response.body().string();
+                                JSONObject jsonObject = new JSONObject(string);
+                                JSONObject child = jsonObject.getJSONObject("user");
+                                String resume = child.getString("resume");
+                                String url = constant.baseUrl + resume;
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                            } else {
+                                string = response.errorBody().string();
+                                JSONObject jsonObject = new JSONObject(string);
+                                String errormsg = jsonObject.getString("message");
+                                TastyToast.makeText(mcontext, "Error :" + errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                            TastyToast.makeText(mcontext, "Error :" + e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        TastyToast.makeText(mcontext, "Error :" + t.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    }
+                });
             }
         });
+    }
+
+    private void ResetPasswordLogic() {
+        rlPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rlPassword.setClickable(false);
+                ChangePasswordLogic();
+            }
+        });
+    }
+
+    private void initz() {
+        String name = Preference.getSharedPreferenceString(mcontext, "name", "");
+        String email = Preference.getSharedPreferenceString(mcontext, "email", "");
+        uid = Preference.getSharedPreferenceString(mcontext, "uid", "");
+        token = Preference.getSharedPreferenceString(mcontext, "token", "");
+        rlLogout = view.findViewById(R.id.rllogout);
+        rlProfile = view.findViewById(R.id.rlProfile);
+        rlPassword = view.findViewById(R.id.rl_change_password);
+        rlResume = view.findViewById(R.id.rl_resume);
+        img = view.findViewById(R.id.iv);
+        tvemail = view.findViewById(R.id.email);
+        tvname = view.findViewById(R.id.name);
+        tvname.setText(name);
+        tvemail.setText(email);
     }
 
     private void ChangePasswordLogic() {
@@ -363,6 +407,8 @@ public class Profile extends Fragment {
                         String name = child.getString("name");
                         String education = child.getString("education");
                         String phone = child.getString("phone");
+                        String imageUrl = child.getString("imageUrl");
+                        Preference.setSharedPreferenceString(mcontext,"imageUrl",constant.baseUrl+imageUrl);
                         String location = child.getString("location");
                         String skills = child.getString("skills");
                         String links = child.getString("links");
@@ -381,12 +427,13 @@ public class Profile extends Fragment {
                         string = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(string);
                         String errormsg = jsonObject.getString("message");
-                        TastyToast.makeText(mcontext, "Error : "+errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                        TastyToast.makeText(mcontext, "Error : " + errormsg, TastyToast.LENGTH_LONG, TastyToast.WARNING);
                     }
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
-                    TastyToast.makeText(mcontext, "Error : Please fill this from for your Profile..", TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                }rlPassword.setClickable(true);
+                    TastyToast.makeText(mcontext, "Error : Please fill this from for your Profile.." +e, TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                }
+                rlPassword.setClickable(true);
             }
 
             @Override
@@ -412,7 +459,6 @@ public class Profile extends Fragment {
         data.addProperty("additional", additional);
         jsonObject.add("data", data);
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi().edit(jsonObject, "Bearer " + token);
-        final ProgressDialog pd = new ProgressDialog(mcontext);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
