@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +39,7 @@ public class Detail extends AppCompatActivity {
     InternshipAdapter adapter;
     String query, type;
     Call<ResponseBody> call;
-
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,14 @@ public class Detail extends AppCompatActivity {
         query = getIntent().getStringExtra("query");
         type = getIntent().getStringExtra("type");
         recyclerView = findViewById(R.id.rv);
+        back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         if (type.equalsIgnoreCase("")) {
             call = RetrofitClient.getInstance().getApi().getInternshipAll();

@@ -16,9 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:layout_centerVertical="true"/>
+
             <TextView
                 android:id="@+id/tv_1"
+                android:layout_toRightOf="@id/back"
                 android:layout_width="wrap_content"
+                android:paddingStart="20dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/brandon"
                 android:text="Intern"

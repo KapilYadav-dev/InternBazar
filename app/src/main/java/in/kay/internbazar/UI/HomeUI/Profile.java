@@ -72,6 +72,7 @@ public class Profile extends Fragment {
         LogoutLogic();
         ProfileLogic();
         ChooseImageLogic();
+        LoadUI();
     }
 
 
